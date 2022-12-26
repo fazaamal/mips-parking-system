@@ -65,16 +65,16 @@ li $t4, 1
 # Parking space detection
 detectCarOnProximitySensor:
 #Turn LED green
-li t3, 1
+li $t3, 1
 la $a0, heightDetectedOnPressureSensor
 jal printString
 jal readInt
 move $t2, $v0
 #If height detected is greater than 2000cm then keep waiting until height is less than 2000cm
-bge $t0, 1999, detectCarOnProximitySensor
+bge $t2, 1999, detectCarOnProximitySensor
 
 #Turn LED red
-li t3, 0
+li $t3, 0
 
 #Start with exiting procedure 
 

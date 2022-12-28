@@ -2,6 +2,7 @@
 welcome: .asciiz "\nLCD DISPLAY: Welcome! This is the FILA parking garage. \nPlease scan your TouchNGo card to enter! " 
 cardDetected: .asciiz "\nCard detected? (y/n) " 
 weightDetectedOnPressureSensor: .asciiz "Weight detected on pressure sensor? (kg) "
+heightDetectedOnPressureSensor: .asciiz "Height detected on proximity sensor? (cm) "
 enterCardBalance: .asciiz "\nWhat is the card balance? "
 insufficientBalance: .asciiz "\nSorry insufficient funds. Please ensure you have at least RM10 in your TnG card"
 cardBalanceLCD: .asciiz "\nLCD DISPLAY: Your card balance is: RM"
@@ -60,7 +61,20 @@ li $t4, 1
 
 #Wait until sensor detected distance of less than 1 metre
 
+
+# Parking space detection
+detectCarOnProximitySensor:
 #Turn LED green
+li $t3, 1
+la $a0, heightDetectedOnPressureSensor
+jal printString
+jal readInt
+move $t2, $v0
+#If height detected is greater than 2000cm then keep waiting until height is less than 2000cm
+bge $t2, 1999, detectCarOnProximitySensor
+
+#Turn LED red
+li $t3, 0
 
 #Start with exiting procedure 
 

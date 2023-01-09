@@ -137,7 +137,7 @@ detectCard:
 la $a0, cardDetected
 jal printString
 
-#ERROR HERE???????
+# solved by member
 jal readChar
 #Move char read to register for RFID reader
 move $t1, $v0 
@@ -146,6 +146,7 @@ j detectCard
 
 getHoursParked:
 la $a0, enterHoursParked
+jal printString
 jal readInt
 move $t6, $v0
 ble $t6, 1, getHoursParked
@@ -226,4 +227,3 @@ jr $ra
 exit:
 li $v0, 10
 syscall
-
